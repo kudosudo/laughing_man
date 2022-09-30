@@ -1,0 +1,5 @@
+pip
+pandas
+numpy
+mediapipe
+protobuf==3.20.*

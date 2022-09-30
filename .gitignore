@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# image folders to be kept, but not upload images
+/app/imgs/test_*
+/app/output/test_*
+
 # Distribution / packaging
 .Python
 build/
