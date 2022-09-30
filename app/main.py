@@ -32,7 +32,7 @@ def scale_bounding_box(bbox):
   scale_h = box_h * 1.5
   # Get centre of original shape, and position of top-left of ROI in output image
   cx, cy = (x0 + x1) /2, (y0 + y1)/2
-  top  = cy - scale_h/1.8
+  top  = cy - scale_h/1.7
   left = cx - scale_w/2
   return left, top, scale_w, scale_h
   
