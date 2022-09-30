@@ -23,23 +23,18 @@ def normalized_to_pixel_coordinates(
 
 def scale_bounding_box(bbox):
   box_x, box_y, box_w, box_h = bbox
-  # find the center of the original bbox
-  center_x = box_x + (box_w/2)
-  center_y = box_y - (box_h/2)
-  print(f'box center:    [{center_x}, {center_y}]')
-  # scale the bounding box by +50%
-  scale_w = box_w * 1.25
-  scale_h = box_h * 1.25
-  # Get new anchor coordinates using the center
-  scale_x = center_x - (scale_w/2)
-  scale_y = center_y + (scale_h/2)
-  # scaled center for validation
-  scale_center_x = scale_x + (scale_w/2)
-  scale_center_y = scale_y - (scale_h/2)
-  print(f'scaled_center: [{scale_center_x}, {scale_center_y}]')
-  print(f'scaled: [{scale_x}, {scale_y}, {scale_w}, {scale_h}]')
-  
-  return scale_x, scale_y, scale_w, scale_h
+  x0 = box_x
+  x1 = box_x+box_w
+  y0 = box_y
+  y1 = box_y+box_h
+  # scale the box size
+  scale_w = box_w * 1.5
+  scale_h = box_h * 1.5
+  # Get centre of original shape, and position of top-left of ROI in output image
+  cx, cy = (x0 + x1) /2, (y0 + y1)/2
+  top  = cy - scale_h/1.8
+  left = cx - scale_w/2
+  return left, top, scale_w, scale_h
   
 
 def add_overlay(img, bbox):
@@ -77,7 +72,7 @@ def main():
   mp_face_detection = mp.solutions.face_detection
   
   # Images to process. 
-  IMAGE_FILES = ['app/imgs/test_image.jpg']
+  IMAGE_FILES = ['app/imgs/example.jpg']
   with mp_face_detection.FaceDetection(
       model_selection=1, 
       min_detection_confidence=0.5
@@ -107,7 +102,7 @@ def main():
           print('no box detected')
         # Instead of drawing, use the space below to add the overlay
         overlay_image = add_overlay(image, bb_box)
-      cv2.imwrite('./app/output/test_image_scaled_' + str(idx) + '.png', overlay_image)
+      cv2.imwrite('./app/output/example_image_' + str(idx) + '.png', overlay_image)
   
   
   
