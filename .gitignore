@@ -10,6 +10,9 @@ __pycache__/
 /app/imgs/test_*
 /app/output/test_*
 
+# remove vscode stuff
+.vscode
+
 # Distribution / packaging
 .Python
 build/
