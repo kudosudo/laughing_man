@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 
 # Install OpenCV
 RUN apt update
-RUN apt install -y libopencv-dev python3-opencv
+RUN apt install -y libopencv-dev python3-opencv ffmpeg
 
 # Install pip requirements
 COPY requirements.txt .
@@ -24,4 +24,4 @@ RUN python -m pip install -r requirements.txt
 # USER appuser
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["python", "app/main.py"]
+CMD ["python", "app/main.py", "video"]

@@ -17,7 +17,7 @@ convert images, video, or camera feed with faces into the laughing man
 4. Processed images will be in the `app/output` folder.
 
 Example input:
-![Input](https://github.com/kudosudo/laughing_man/blob/main/app/imgs/example.jpg "Example Input")
+![Input](https://github.com/kudosudo/laughing_man/blob/main/app/process_folder/example.jpg "Example Input")
 
 Example Output:
 ![Output](https://github.com/kudosudo/laughing_man/blob/main/app/output/example_image_0.png "Example Output")

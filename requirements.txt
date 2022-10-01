@@ -2,4 +2,7 @@ pip
 pandas
 numpy
 mediapipe
+imageio
+imageio-ffmpeg
+natsort
 protobuf==3.20.*
