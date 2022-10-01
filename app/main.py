@@ -1,3 +1,4 @@
+import os
 import cv2
 import mediapipe as mp
 import math
@@ -22,7 +23,9 @@ def normalized_to_pixel_coordinates(
   return x_px, y_px
 
 def scale_bounding_box(bbox):
+  # Get the location coords to place image and image width & height
   box_x, box_y, box_w, box_h = bbox
+  # Get the upper-left and lower-right coordinates of the box
   x0 = box_x
   x1 = box_x+box_w
   y0 = box_y
@@ -41,7 +44,7 @@ def add_overlay(img, bbox):
   # Get the height and width of the original image
   h, w, _ = img.shape
   # Open the image to overlay onto the bg
-  overlay = cv2.imread('app/imgs/laugh_man_still.png', cv2.IMREAD_UNCHANGED)
+  overlay = cv2.imread('app/overlays/laugh_man_still.png', cv2.IMREAD_UNCHANGED)
   # Get the sizes and location of the bounding box
   # box_x, box_y, box_w, box_h = bbox
   box_x, box_y, box_w, box_h = scale_bounding_box(bbox)
@@ -65,21 +68,30 @@ def add_overlay(img, bbox):
                               alpha_l * result[box_y:box_y+box_h, box_x:box_x+box_w, c])
   return result
   
-  
+def get_files_to_process(path:str):
+  file_list = [file for file in os.listdir(path) if file!='.gitkeep']
+  ## TO DO: 
+  #  1. If video, convert into images stored in /app/tmp/
+  #  2. Conf something for multiple video or mixed media
+  return file_list
 
 def main():
-  # Initialize mediapipe face detection and drawing onto screen
+  # Initialize mediapipe face detection
   mp_face_detection = mp.solutions.face_detection
   
-  # Images to process. 
-  IMAGE_FILES = ['app/imgs/example.jpg']
+  # Get list of files to process: 
+  fpath = './app/process_folder/'
+  IMAGE_FILES = get_files_to_process(fpath)
+  print(f'Total files to process: {len(IMAGE_FILES)}')
+  print(IMAGE_FILES)
   with mp_face_detection.FaceDetection(
       model_selection=1, 
       min_detection_confidence=0.5
       ) as face_detection:
     for idx, file in enumerate(IMAGE_FILES):
+      print(f'Processing: {file}')
       # Read the file
-      image = cv2.imread(file)
+      image = cv2.imread(fpath+file)
       # Convert the BGR image to RGB and process it with MediaPipe Face Detection.
       results = face_detection.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
       # Draw face detections of each face.

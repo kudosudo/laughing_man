@@ -1,12 +1,23 @@
 # laughing_man
+
 convert images, video, or camera feed with faces into the laughing man
 
-To build the container:
+## Instructions
+
+1. Place images you want to process inside the `app/process_folder` folder.
+
+  - If you want to change the overlay image to something other than laughing man, replace the `/app/overlays/laughing_man_still.png` for images or the `/app/overlays/laughing_man.gif` for video/webcam.
+
+2. Build the container:
 `docker build -t laughingman .`
 
-To run the container:
+3. Run the container:
 `docker run -v <path>/laughing_man/app:/app -it laughingman`
 
-Example input: 
+4. Processed images will be in the `app/output` folder.
+
+Example input:
 ![Input](https://github.com/kudosudo/laughing_man/blob/main/app/imgs/example.jpg "Example Input")
-![Output](https://github.com/kudosudo/laughing_man/blob/main/app/output/example_image_0.png "output")
+
+Example Output:
+![Output](https://github.com/kudosudo/laughing_man/blob/main/app/output/example_image_0.png "Example Output")
