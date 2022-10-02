@@ -9,6 +9,7 @@ __pycache__/
 # image folders to be kept, but not upload images
 /app/*/test*
 /app/tmp/
+/app/overlays/gif_pngs/
 
 .DS_Store
 
