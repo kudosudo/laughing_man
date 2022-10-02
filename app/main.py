@@ -197,6 +197,7 @@ def process_video(gif_length:int)-> float:
     # Increase this counter until it = frame_rate_diff.
     gif_rate_adjust_idx = 1
     # Read until video is completed
+    print('Processing video. Please wait...')
     while(cap.isOpened()):
       # print(f'...processing frame {idx}')
       # Capture frame-by-frame
@@ -300,4 +301,4 @@ if __name__ == "__main__":
   assert len(args)==1, 'Please pass a single argument from this list: [image, video, cam]'
   mode = args[0]
   assert mode in ['image','video','cam'], 'mode must be one of: [image, video, cam]'
-  main(mode='video')
+  main(mode=mode)
